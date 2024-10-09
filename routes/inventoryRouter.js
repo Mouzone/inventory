@@ -6,5 +6,5 @@ inventoryRouter.get("/", inventoryController.inventoryIndexGet)
 inventoryRouter.get("/new", inventoryController.inventoryNewGet)
 inventoryRouter.post("/new", inventoryController.inventoryNewPost)
 inventoryRouter.get("/search", inventoryController.inventorySearchGet)
-
+// add route for each player like player/:id
 module.exports = inventoryRouter

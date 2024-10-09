@@ -26,6 +26,12 @@
                     <option value="<%= team %>"><%= team %></option>
                 <% }) %>
             </select>
+            <label for="position"> Position: </label>
+            <select name="position" id="position">
+                <% positions.forEach(position => { %>
+                    <option value="<%= position %>"><%= position %></option>
+                <% }) %>
+            </select>
             <button type="submit">Submit</button>
         </form>
         <ol>
