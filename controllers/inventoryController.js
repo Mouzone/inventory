@@ -1,5 +1,5 @@
 const db = require("db/queries.js")
 
-module.exports = {
+module.exports.inventoryIndexGet = (req, res) => {
 
 }
