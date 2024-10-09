@@ -8,24 +8,28 @@
         <form method="GET" action="/search">
             <label for="name"> Name: </label>
             <input type="text" id="name" name="name">
+
             <label for="nationality"> Nationality: </label>
             <select name="nationality" id="nationality">
                 <% nationalities.forEach(nationality => { %>
                     <option value="<%= nationality %>"><%= nationality %></option>
                 <% }) %>
             </select>
+
             <label for="league"> League: </label>
             <select name="league" id="league">
                 <% leagues.forEach(league => { %>
                     <option value="<%= league %>"><%= league %></option>
                 <% }) %>
             </select>
+
             <label for="team"> Team: </label>
             <select name="team" id="team">
                 <% teams.forEach(team => { %>
                     <option value="<%= team %>"><%= team %></option>
                 <% }) %>
             </select>
+
             <label for="position"> Position: </label>
             <select name="position" id="position">
                 <% positions.forEach(position => { %>

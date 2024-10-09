@@ -11,8 +11,12 @@ module.exports.inventoryIndexGet = async (req, res) => {
 
 // todo: figure out how to not rerender everything and just the players section of the results
 module.exports.inventorySearchGet = async (req, res) => {
-    const players = await db.search(req.params.name, req.params.team, req.params.league, req.params.position)
-    res.render("")
+    const nationalities = await db.getAllNationalities()
+    const leagues = await db.getAllLeagues()
+    const teams = await db.getAllTeams()
+    const positions = await db.getAllPositions()
+    const players = await db.search(req.params.name, req.params.nationality, req.params.team, req.params.league, req.params.position)
+    res.render("index", {title: "Player-dex", nationalities, leagues, teams, positions, players})
 }
 
 module.exports.inventoryNewGet = (req, res) => {
