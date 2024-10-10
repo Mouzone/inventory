@@ -92,13 +92,71 @@ async function insert(name, birthdate, team, league, nationality, position, star
         WHERE name = $1 AND birthdate = $2`,
         [name, birthdate]
     )
-    const player_id = result.rows.length > 0 ? result.rows[0].player_id : null
+    const player_id = player_result.rows[0].player_id
 
-    // todo: finish writing this
-    const team_id = await pool.query(``)
-    const league_id = await pool.query(``)
-    const nationality_id = await pool.query(``)
-    const position_id = await pool.query(``)
+    const team_result = await pool.query(
+        `SELECT team_id
+        FROM team
+        WHERE team = $1`,
+        [team]
+    )
+    const team_id = team_result.rows[0].team_id
+
+    const league_result = await pool.query(
+        `SELECT league_id
+        FROM league
+        WHERE league = $1`,
+        [league]
+    )
+    const league_id = league_result.rows[0].league_id
+
+    const nationality_result = await pool.query(
+        `SELECT nationality_id
+        FROM nationality
+        WHERE nationality = $1`,
+        [nationality]
+    )
+    const nationality_id = nationality_result.rows[0].nationality_id
+
+    const position_result = await pool.query(
+        `SELECT position_id
+        FROM position
+        WHERE position = $1`,
+        [position]
+    )
+    const position_id = position_result.rows[0].position_id
+
+    await pool.query(
+        `INSERT INTO player_position (player_id, position_id) 
+        VALUES ($1, $2)`,
+        [player_id, position_id]
+    )
+
+    await pool.query(
+        `INSERT INTO nationality_player (nationality_id, player_id)
+        VALUES ($1, $2)`,
+        [nationality_id, player_id]
+    )
+
+    await pool.query(
+        `INSERT INTO league_nationality (league_id, nationality_id)
+        VALUES ($1, $2)`,
+        [league_id, nationality_id]
+    )
+
+    await pool.query(
+        `INSERT INTO league_team (league_id, team_id)
+        VALUES ($1, $2)`,
+        [league_id, team_id]
+    )
+
+    await pool.query(
+        `INSERT INTO player_team (player_id, team_id, start_yr, end_yr)
+        VALUES ($1, $2, $3, $4)`,
+        [player_id, team_id, start_yr, end_yr]
+    )
+
+    pool.query("COMMIT")
 }
 
 module.exports = {
