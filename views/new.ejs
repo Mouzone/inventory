@@ -6,6 +6,10 @@
     <body>
         <h1><%= title %></h1>
         <form action="/new" method="POST">
+            <label for="name"> Name: </label>
+            <input type="text" id="name" name="name">
+            <label for="emoji"> Emoji: </label>
+            <input type="text" id="emoji" name="emoji">
             <button type="submit">Submit</button>
         </form>
     </body>
