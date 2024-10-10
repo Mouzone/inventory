@@ -9,37 +9,37 @@ module.exports.getAllEmojis = async () => {
     return rows
 }
 
-// category will be a list
-module.exports.getEmojiBySearch = async (name, min_date, max_date, category) => {
+module.exports.getEmojiBySearch = async (name, category, min_date, max_date) => {
     let query = `SELECT *
                         FROM emoji
-                        JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
-                        JOIN category ON emoji_category.category_id = category.category_id
+                        LEFT JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
+                        LEFT JOIN category ON emoji_category.category_id = category.category_id
                         WHERE 1=1`
 
     const params = []
 
     if (name) {
-        query += `AND WHERE name LIKE ${params.length + 1}`
+        query += `AND emoji_name LIKE $${params.length + 1}`
         params.push(`%${name}%`)
     }
 
-    if (min_date) {
-        query += `AND date >= ${params.length + 1}`
-        params.push(min_date)
-    }
-
-    if (max_date) {
-        query += `AND date <= ${params.length + 1}`
-        params.push(max_date)
-    }
-
     if (category) {
-        query += `AND category_name = ${params.length + 1}`
+        query += `AND category_name = $${params.length + 1}`
         params.push(category)
     }
 
-    const { rows } = pool.query(query, params)
+    if (min_date) {
+        query += `AND date_added >= $${params.length + 1}`
+        params.push(min_date)
+    }
+
+
+    if (max_date) {
+        query += `AND date_added <= $${params.length + 1}`
+        params.push(max_date)
+    }
+
+    const { rows } = await pool.query(query, params)
     return rows
 }
 
@@ -78,10 +78,10 @@ module.exports.getSpecificCategoryEmojis = async (categoryToSelect) => {
     return rows
 }
 
-module.exports.insertEmoji = async (name, encoding) => {
+module.exports.insertEmoji = async (name, emoji) => {
     await pool.query(
-        `INSERT INTO emoji (name, encoding, date) 
+        `INSERT INTO emoji (emoji_name, encoding, date_added) 
             VALUES ($1, $2, $3)`,
-        [name, encoding, new Date()]
+        [name, emoji, new Date()]
     )
 }

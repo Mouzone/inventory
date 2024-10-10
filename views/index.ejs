@@ -8,16 +8,22 @@
         <form method="GET" action="/search">
             <label for="name"> Name: </label>
             <input type="text" id="name" name="name">
+            <label for="category"> Category: </label>
+            <select id="category" name="category">
+                <option value=""> None </option>
+                <% categories.forEach(category => { %>
+                    <option value="category"><%= category %></option>
+                <% }) %>
+            </select>
             <label for="min_date"> Min Date: </label>
             <input type="date" id="min_date" name="min_date">
             <label for="max_date"> Max Date: </label>
             <input type="date" id="max_date" name="max_date">
             <button type="submit">Search</button>
-<!--            figure out how filter add add categories, maybe put it on the side to filter -->
         </form>
         <div>
             <% emojis.forEach(emoji => {%>
-                <div> <%- emoji.encoding %></div>
+                <div> <%= emoji.encoding %></div>
             <% }) %>
         </div>
         <form method="GET" action="/new">
