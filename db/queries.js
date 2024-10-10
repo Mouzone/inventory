@@ -1,27 +1,34 @@
 const pool = require("./pool")
 require('dotenv').config()
 
-module.exports.getAllEmojis = () => {
-    const { rows } = pool.query(
+module.exports.getAllEmojis = async () => {
+    const { rows } = await pool.query(
         `SELECT *
         FROM emoji`
+    )
+    return rows
+}
+
+// category will be a list
+module.exports.getEmojiBySearch = async (name, min_date, max_date, category) => {
+
+}
+
+module.exports.getEmojiByID = async (id) => {
+    const { rows } = await pool.query(
+        `SELECT *
+        FROM emoji
+        JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
+        JOIN category ON emoji_category.category_id = category.category_id
+        WHERE emoji_id = $1`,
+        [id]
     )
 
     return rows
 }
 
-// category will be a list
-module.exports.getEmojiBySearch = (name, min_date, max_date, category) => {
-
-}
-
-module.exports.getEmojiByID = (id) => {
-    const { rows } = pool.query(`
-    `)
-}
-
-module.exports.getAllCategories = () => {
-    const { rows } = pool.query(
+module.exports.getAllCategories = async () => {
+    const { rows } = await pool.query(
         `SELECT * 
         FROM category`
     )
@@ -29,8 +36,8 @@ module.exports.getAllCategories = () => {
     return rows
 }
 
-module.exports.getSpecificCategoryEmojis = (categoryToSelect) => {
-    const { rows } = pool.query(
+module.exports.getSpecificCategoryEmojis = async (categoryToSelect) => {
+    const { rows } = await pool.query(
         `SELECT emoji_id, emoji_name, encoding, date_added 
         FROM category 
         JOIN emoji_category ON category.category_id = emoji_category.category_id
@@ -40,4 +47,12 @@ module.exports.getSpecificCategoryEmojis = (categoryToSelect) => {
     )
 
     return rows
+}
+
+module.exports.insertEmoji = async (name, encoding) => {
+    await pool.query(
+        `INSERT INTO emoji (name, encoding, date) 
+            VALUES ($1, $2, $3)`,
+        [name, encoding, new Date()]
+    )
 }

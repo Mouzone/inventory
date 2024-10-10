@@ -1,7 +1,8 @@
 const db = require("../db/queries.js")
 
 module.exports.inventoryIndexGet = async (req, res) => {
-    res.render("index", {title: "Emojis"})
+    const emojis = await db.getAllEmojis()
+    res.render("index", {title: "Emojis", emojis})
 }
 
 module.exports.inventorySearchGet = async (req, res) => {
