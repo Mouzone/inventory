@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+    </head>
+    <body>
+        <h1><%= title %></h1>
+        <form action="/new" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <label for="birthdate">Birthdate:</label>
+            <input type="date" id="birthdate" name="birthdate">
+            <label for="team">Team:</label>
+            <input type="text" id="team" name="team">
+            <label for="nationality">Nationality:</label>
+            <input type="text" id="nationality" name="nationality">
+            <label for="league">League:</label>
+            <input type="text" id="league" name="league">
+            <label for="position">Position:</label>
+            <input type="text" id="position" name="position">
+            <label for="start_yr">Start Year:</label>
+            <input type="number" id="start_yr" name="start_yr" step="1">
+            <label for="end_yr">Last Year: </label>
+            <input type="number" id="end_yr" name="end_yr" step="1">
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>

@@ -47,8 +47,58 @@ async function search(name, team, league, nationality, position) {
         [`%${name}%`, `%${team}%`, `%${league}%`, `%${nationality}%`, `%${position}%`]
     );
 
-    console.log(rows)
     return rows
+}
+
+async function insert(name, birthdate, team, league, nationality, position, start_yr, end_yr) {
+    await pool.query(
+        `INSERT INTO player (name, birthdate) 
+        VALUES ($1, $2) 
+        ON CONFLICT (name, birthdate) DO NOTHING`,
+        [name, birthdate]
+    )
+
+    await pool.query(
+        `INSERT INTO team (team) 
+        VALUES ($1) 
+        ON CONFLICT (team) DO NOTHING`,
+        [team]
+    )
+
+    await pool.query(
+        `INSERT INTO league (league) 
+        VALUES ($1) 
+        ON CONFLICT (league) DO NOTHING`,
+        [league]
+    )
+
+    await pool.query(
+        `INSERT INTO nationality (nationality) 
+        VALUES ($1) 
+        ON CONFLICT (nationality) DO NOTHING`,
+        [nationality]
+    )
+
+    await pool.query(
+        `INSERT INTO position (position) 
+        VALUES ($1) 
+        ON CONFLICT (position) DO NOTHING`,
+        [position]
+    )
+
+    const player_result = await pool.query(
+        `SELECT player_id 
+        FROM player 
+        WHERE name = $1 AND birthdate = $2`,
+        [name, birthdate]
+    )
+    const player_id = result.rows.length > 0 ? result.rows[0].player_id : null
+
+    // todo: finish writing this
+    const team_id = await pool.query(``)
+    const league_id = await pool.query(``)
+    const nationality_id = await pool.query(``)
+    const position_id = await pool.query(``)
 }
 
 module.exports = {
@@ -58,4 +108,5 @@ module.exports = {
     getAllNationalities,
     getAllPositions,
     search,
+    insert,
 }
