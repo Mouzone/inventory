@@ -11,7 +11,36 @@ module.exports.getAllEmojis = async () => {
 
 // category will be a list
 module.exports.getEmojiBySearch = async (name, min_date, max_date, category) => {
+    let query = `SELECT *
+                        FROM emoji
+                        JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
+                        JOIN category ON emoji_category.category_id = category.category_id
+                        WHERE 1=1`
 
+    const params = []
+
+    if (name) {
+        query += `AND WHERE name LIKE ${params.length + 1}`
+        params.push(`%${name}%`)
+    }
+
+    if (min_date) {
+        query += `AND date >= ${params.length + 1}`
+        params.push(min_date)
+    }
+
+    if (max_date) {
+        query += `AND date <= ${params.length + 1}`
+        params.push(max_date)
+    }
+
+    if (category) {
+        query += `AND category_name = ${params.length + 1}`
+        params.push(category)
+    }
+
+    const { rows } = pool.query(query, params)
+    return rows
 }
 
 module.exports.getEmojiByID = async (id) => {
