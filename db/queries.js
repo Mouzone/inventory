@@ -43,18 +43,21 @@ module.exports.getEmojiBySearch = async (name, category, min_date, max_date) => 
     return rows
 }
 
-module.exports.getEmojiByID = async (id) => {
+module.exports.getEmojiByEmojiID = async (id) => {
     const { rows } = await pool.query(
         `SELECT *
         FROM emoji
-        JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
-        JOIN category ON emoji_category.category_id = category.category_id
         WHERE emoji_id = $1`,
         [id]
     )
 
     return rows
 }
+
+// todo: given emoji_id get categories
+
+// todo: given category_id get emojis
+
 
 module.exports.getAllCategories = async () => {
     const { rows } = await pool.query(

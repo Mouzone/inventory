@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+    </head>
+    <body>
+        <title><%= title %></title>
+        <div>
+            <div><%= emoji.encoding %></div>
+            <div>
+                <%= emoji.emoji_name %>
+                <%= emoji.date_added %>
+                <div>
+                    <form action="" method="">
+                        <label for="category"></label>
+                        <input type="text" id="category" name="category">
+                        <button type="submit"> Add Tag </button>
+                    </form>
+                    <% emoji.categories.forEach(category => { %>
+                        <div>
+<!--                            todo: upon pressing category get taken to page of all emojis with category-->
+                            <%= category %>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
