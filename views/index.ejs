@@ -23,7 +23,7 @@
         </form>
         <div>
             <% emojis.forEach(emoji => {%>
-                <div> <%= emoji.encoding %></div>
+                <a href="/info/<%= emoji.emoji_id %>"> <%= emoji.encoding %></a>
             <% }) %>
         </div>
         <form method="GET" action="/new">

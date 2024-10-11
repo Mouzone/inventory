@@ -15,7 +15,7 @@ module.exports.inventorySearchGet = async (req, res) => {
         req.query.min_date ? new Date(req.query.min_date).toISOString() : null,
         req.query.max_date ? new Date(req.query.max_date).toISOString() : null
     )
-
+    console.log(emojis)
     res.render("index", {title: "Emojis", emojis, categories})
 }
 

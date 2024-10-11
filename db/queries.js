@@ -10,7 +10,7 @@ module.exports.getAllEmojis = async () => {
 }
 
 module.exports.getEmojiBySearch = async (name, category, min_date, max_date) => {
-    let query = `SELECT *
+    let query = `SELECT emoji.emoji_id, encoding
                         FROM emoji
                         LEFT JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
                         LEFT JOIN category ON emoji_category.category_id = category.category_id
