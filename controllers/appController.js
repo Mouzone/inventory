@@ -30,25 +30,7 @@ module.exports.inventoryNewPost = async (req, res) => {
     res.redirect("/")
 }
 
-module.exports.inventoryInfoGet = async (req, res) => {
-    const emojiSearchResult = await db.getEmojiByEmojiID(req.params.emoji_id)
-    const emoji = emojiSearchResult[0]
-    const categories = await db.getCategoriesByEmojiID(req.params.emoji_id)
-    res.render("emoji_info", {title: "Info", emoji, categories})
-
-}
-
-module.exports.inventoryInfoPost = async(req, res) => {
-    await db.insertCategory(req.params.emoji_id, req.body.category)
-    res.redirect(`/info/${req.params.emoji_id}`)
-}
-
 module.exports.inventoryCategoryGet = async (req, res) => {
     const emojis = await db.getEmojiByCategoryID(req.params.category_id)
     res.render("category_list", {title: `Category`, emojis})
-}
-
-module.exports.inventoryEditPost = async (req, res) => {
-    await db.updateName(req.params.emoji_id, req.body.name)
-    res.redirect(`/info/${req.params.emoji_id}`)
 }
