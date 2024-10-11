@@ -12,7 +12,7 @@
             <select id="category" name="category">
                 <option value=""> None </option>
                 <% categories.forEach(category => { %>
-                    <option value="<%= category.category_id %>"><%= category %></option>
+                    <option value="<%= category.category_id %>"><%= category.category_name %></option>
                 <% }) %>
             </select>
             <label for="min_date"> Min Date: </label>
