@@ -111,7 +111,7 @@ module.exports.insertEmoji = async (name, emoji) => {
     )
 }
 
-module.exports.insertCategory = async (emoji_id, category) => {
+module.exports.addCategoryToEmoji = async (emoji_id, category) => {
     await pool.query(
         `INSERT INTO category (category_name)
             VALUES ($1)
@@ -156,4 +156,13 @@ module.exports.updateName = async (emoji_id, name) => {
     )
 
     return true
+}
+
+module.exports.deleteCategoryFromEmoji = async (emoji_id, category_id) => {
+    await pool.query(
+        `DELETE FROM emoji_category
+        WHERE emoji_id = $1
+        AND category_id = $2`,
+        [emoji_id, category_id]
+    )
 }

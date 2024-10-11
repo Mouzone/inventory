@@ -31,7 +31,13 @@
 <!--                    todo: figure out if a link element is triggerable
 by pressing anywhere in the elment or just the text-->
 <!--                    todo: add deletion button -->
-                        <a href="/category/<%=category.category_id%>"><%= category.category_name %></a>
+                        <div>
+                            <a href="/category/<%= category.category_id %>"><%= category.category_name %></a>
+                            <form action="/emoji/<%=emoji.emoji_id%>/edit/category/delete/<%= category.category_id%>/"
+                                method="POST">
+                                <button type="submit"> Remove </button>
+                            </form>
+                        </div>
                     <% }) %>
                 </div>
             </div>
