@@ -190,3 +190,7 @@ module.exports.getSharedCategories = async (category_id) => {
 
     return rows
 }
+
+module.exports.deleteCategory = async (category_id) => {
+//     delete from emoji_caegory and category
+}

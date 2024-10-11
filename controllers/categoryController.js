@@ -20,3 +20,7 @@ module.exports.categoryGet = async (req, res) => {
             to_check: other_categories,
         })
 }
+
+module.exports.categoryDeletePost = async (req, res) => {
+
+}

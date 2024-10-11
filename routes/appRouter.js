@@ -14,6 +14,8 @@ appRouter.use("/emoji", infoRouter)
 
 
 // todo: figure out how to delete a category for all emojis
+// todo: add delete for each emoji page
+
 // todo: add sort functionality by date added
 // todo: add autocomplete suggestions when adding new categories b
 //  ased on categories that already exist
