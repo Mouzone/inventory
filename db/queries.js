@@ -54,7 +54,18 @@ module.exports.getEmojiByEmojiID = async (id) => {
     return rows
 }
 
-// todo: given emoji_id get categories
+module.exports.getCategoriesByEmojiID = async (id) => {
+    const { rows } = await pool.query(
+        `SELECT category.category_id, category_name
+        FROM emoji
+        LEFT JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
+        LEFT JOIN category ON emoji_category.category_id = category.category_id
+        WHERE emoji.emoji_id = $1`,
+        [id]
+    )
+
+    return rows
+}
 
 // todo: given category_id get emojis
 

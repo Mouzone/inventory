@@ -16,11 +16,9 @@
                         <input type="text" id="category" name="category">
                         <button type="submit"> Add Tag </button>
                     </form>
-                    <% emoji.categories.forEach(category => { %>
-                        <div>
+                    <% categories.forEach(category => { %>
 <!--                            todo: upon pressing category get taken to page of all emojis with category-->
-                            <%= category %>
-                        </div>
+                        <a href=""><%= category.category_name %></a>
                     <% }) %>
                 </div>
             </div>

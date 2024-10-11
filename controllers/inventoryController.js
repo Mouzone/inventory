@@ -31,9 +31,10 @@ module.exports.inventoryNewPost = async (req, res) => {
     res.redirect("/")
 }
 
-module.exprots.inventoryInfoGet = async (req, res) => {
-    const emojiSearchResult = await db.getEmojiByID(req.params.emoji_id)
+module.exports.inventoryInfoGet = async (req, res) => {
+    const emojiSearchResult = await db.getEmojiByEmojiID(req.params.emoji_id)
     const emoji = emojiSearchResult[0]
-    res.render()
+    const categories = await db.getCategoriesByEmojiID(req.params.emoji_id)
+    res.render("info", {title: "Info", emoji, categories})
 
 }
