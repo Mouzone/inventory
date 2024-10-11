@@ -1,10 +1,10 @@
 const db = require("../db/queries")
 
-module.exports.inventoryNewGet = (req, res) => {
+module.exports.newGet = (req, res) => {
     res.render("addEmoji", {title: "Add Player"})
 }
 
-module.exports.inventoryNewPost = async (req, res) => {
+module.exports.newPost = async (req, res) => {
     await db.insertEmoji(
         req.body.name,
         req.body.emoji
