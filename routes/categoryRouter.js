@@ -3,6 +3,6 @@ const categoryRouter = Router()
 
 const categoryController = require("../controllers/categoryController")
 
-categoryRouter.get("/category/:category_id", categoryController.categoryGet)
+categoryRouter.get("/:category_id", categoryController.categoryGet)
 
 module.exports = categoryRouter
