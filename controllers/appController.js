@@ -19,7 +19,7 @@ module.exports.inventorySearchGet = async (req, res) => {
 }
 
 module.exports.inventoryNewGet = (req, res) => {
-    res.render("new", {title: "Add Player"})
+    res.render("addEmoji", {title: "Add Player"})
 }
 
 module.exports.inventoryNewPost = async (req, res) => {
@@ -32,5 +32,5 @@ module.exports.inventoryNewPost = async (req, res) => {
 
 module.exports.inventoryCategoryGet = async (req, res) => {
     const emojis = await db.getEmojiByCategoryID(req.params.category_id)
-    res.render("category_list", {title: `Category`, emojis})
+    res.render("category", {title: `Category`, emojis})
 }

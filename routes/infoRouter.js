@@ -1,6 +1,6 @@
 const Router = require('express')
 const infoRouter = Router()
-const infoController = require('../controllers/infoController')
+const infoController = require('../controllers/emoji_controller')
 const editController = require("../controllers/editController");
 
 infoRouter.get("/:emoji_id", infoController.infoGet)

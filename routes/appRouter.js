@@ -6,6 +6,7 @@ const infoRouter = require('./infoRouter')
 
 appRouter.get("/", appController.inventoryIndexGet)
 appRouter.get("/search", appController.inventorySearchGet)
+// no need to specify new emoji or new category, as can only add categories with emojis and not vice-versa
 appRouter.get("/new", appController.inventoryNewGet)
 appRouter.post("/new", appController.inventoryNewPost)
 appRouter.get("/category/:category_id", appController.inventoryCategoryGet)
