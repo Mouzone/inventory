@@ -1,4 +1,5 @@
 const db = require("../db/queries");
+const {deleteCategory} = require("../db/queries");
 
 module.exports.categoryGet = async (req, res) => {
     const other_categories = Array.isArray(req.query.category_id)
@@ -24,5 +25,6 @@ module.exports.categoryGet = async (req, res) => {
 }
 
 module.exports.categoryDeletePost = async (req, res) => {
-
+    await deleteCategory(req.params.category_id)
+    res.redirect("/")
 }
