@@ -38,6 +38,9 @@
                     <% }) %>
                 </div>
             </div>
+            <form action="/emoji/<%=emoji.emoji_id%>/delete" method="POST">
+                <button type="submit"> Delete Emoji </button>
+            </form>
         </div>
     </body>
     <script>

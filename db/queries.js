@@ -203,14 +203,28 @@ module.exports.getCategoryByCategoryID = async (category_id) => {
 }
 module.exports.deleteCategory = async (category_id) => {
     await pool.query(
-        `DELETE FROM emoji_category
-        WHERE category_id = $1`,
+        `DELETE FROM category
+         WHERE category_id = $1`,
         [category_id]
     )
 
     await pool.query(
-        `DELETE FROM category
+        `DELETE FROM emoji_category
         WHERE category_id = $1`,
         [category_id]
+    )
+}
+
+module.exports.deleteEmoji = async (emoji_id) => {
+    await pool.query(
+        `DELETE FROM emoji
+        WHERE emoji_id = $1`,
+        [emoji_id]
+    )
+
+    await pool.query(
+        `DELETE FROM emoji_category
+        WHERE emoji_id = $1`,
+        [emoji_id]
     )
 }
