@@ -18,7 +18,7 @@
                     </form>
                     <% categories.forEach(category => { %>
 <!--                            todo: upon pressing category get taken to page of all emojis with category-->
-                        <a href=""><%= category.category_name %></a>
+                        <a href="/category/<%=category.category_id%>"><%= category.category_name %></a>
                     <% }) %>
                 </div>
             </div>

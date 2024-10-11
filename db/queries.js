@@ -67,8 +67,17 @@ module.exports.getCategoriesByEmojiID = async (id) => {
     return rows
 }
 
-// todo: given category_id get emojis
-
+module.exports.getEmojiByCategoryID = async (id) => {
+    const { rows } = await pool.query(
+        `SELECT emoji.emoji_id, encoding
+        FROM emoji
+        JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
+        JOIN category ON emoji_category.category_id = category.category_id
+        WHERE category.category_id = $1`,
+        [id]
+    )
+    return rows
+}
 
 module.exports.getAllCategories = async () => {
     const { rows } = await pool.query(
@@ -101,7 +110,6 @@ module.exports.insertEmoji = async (name, emoji) => {
 }
 
 module.exports.insertCategory = async (emoji_id, category) => {
-//     emoji_id 100% exists so just link it emoji_Category
     await pool.query(
         `INSERT INTO category (category_name)
             VALUES ($1)
@@ -109,14 +117,14 @@ module.exports.insertCategory = async (emoji_id, category) => {
         [category]
     )
 
-    const result = await pool.query(
+    const { rows } = await pool.query(
         `SELECT category_id
         FROM category 
         WHERE category_name = $1`,
         [category]
     )
 
-    const category_id = result.rows[0].category_id
+    const category_id = rows[0].category_id
 
     await pool.query(
         `INSERT INTO emoji_category (emoji_id, category_id)

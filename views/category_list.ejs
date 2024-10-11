@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+    </head>
+    <body>
+        <h1><%= title %></h1>
+        <% emojis.forEach(emoji => {%>
+            <a href="/info/<%= emoji.emoji_id %>"><%= emoji.encoding%></a>
+        <% }) %>
+    </body>
+</html>
