@@ -31,7 +31,17 @@ module.exports.inventoryNewPost = async (req, res) => {
 }
 
 module.exports.inventoryCategoryGet = async (req, res) => {
+    // todo: modify getEmojiByCategory to take list of req.query to add onto the equalities
     const emojis = await db.getEmojiByCategoryID(req.params.category_id)
     const categories = await db.getSharedCategories(req.params.category_id)
-    res.render("category", {title: `Category`, emojis})
+    // todo: to_check here o category doens't work when not more than one box is checked
+    res.render(
+        "category",
+        {
+            title: `Category`,
+            category_id: req.params.category_id,
+            emojis,
+            categories,
+            to_check: req.query.category_id,
+        })
 }
