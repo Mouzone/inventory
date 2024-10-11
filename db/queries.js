@@ -1,6 +1,8 @@
 const pool = require("./pool")
 require('dotenv').config()
 
+// todo: don't do nothing for erros, but instead return errors
+//  or make an error handler to know the problem
 module.exports.getAllEmojis = async () => {
     const { rows } = await pool.query(
         `SELECT *
@@ -132,4 +134,26 @@ module.exports.insertCategory = async (emoji_id, category) => {
         ON CONFLICT (emoji_id, category_id) DO NOTHING`,
         [emoji_id, category_id]
     )
+}
+
+module.exports.updateName = async (emoji_id, name) => {
+    const { rows } = await pool.query(
+        `SELECT * 
+        FROM emoji
+        WHERE emoji_name = $1`,
+        [name]
+    )
+
+    if (rows.length) {
+        return false
+    }
+
+    await pool.query(
+        `UPDATE emoji
+        SET emoji_name = $1
+        WHERE emoji_id = $2`,
+        [name, emoji_id]
+    )
+
+    return true
 }

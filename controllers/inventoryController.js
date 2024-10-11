@@ -47,3 +47,8 @@ module.exports.inventoryCategoryGet = async (req, res) => {
     const emojis = await db.getEmojiByCategoryID(req.params.category_id)
     res.render("category_list", {title: `Category`, emojis})
 }
+
+module.exports.inventoryEditPost = async (req, res) => {
+    await db.updateName(req.params.emoji_id, req.body.name)
+    res.redirect(`/info/${req.params.emoji_id}`)
+}

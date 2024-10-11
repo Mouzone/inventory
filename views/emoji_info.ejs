@@ -8,7 +8,18 @@
         <div>
             <div><%= emoji.encoding %></div>
             <div>
-                <%= emoji.emoji_name %>
+                <p>
+                    <%= emoji.emoji_name %>
+                    <button type="button"> Edit </button>
+                </p>
+                <form action="/edit/<%= emoji.emoji_id %>" method="POST">
+                    <label for="name"> New Name: </label>
+                    <input type="text" id="name" name="name">
+                    <div>
+                        <button type="submit"> Update </button>
+                        <button type="button"> Cancel </button>
+                    </div>
+                </form>
                 <%= emoji.date_added %>
                 <div>
                     <form action="/info/<%= emoji.emoji_id %>" method="POST">
@@ -17,11 +28,13 @@
                         <button type="submit"> Add Tag </button>
                     </form>
                     <% categories.forEach(category => { %>
-<!--                            todo: upon pressing category get taken to page of all emojis with category-->
                         <a href="/category/<%=category.category_id%>"><%= category.category_name %></a>
                     <% }) %>
                 </div>
             </div>
         </div>
     </body>
+    <script>
+<!--        make form button apepar and dissapear on button press-->
+    </script>
 </html>

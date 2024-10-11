@@ -3,7 +3,7 @@ const inventoryRouter = require("./routes/inventoryRouter")
 const express = require("express")
 const app = express()
 
-// todo: error handling
+// todo: error handling, both pages and error components in insertion etc for each apge
 app.set("view", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
 app.use(express.urlencoded({ extended: true }))
