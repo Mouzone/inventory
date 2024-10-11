@@ -11,7 +11,7 @@ module.exports.getAllEmojis = async () => {
     return rows
 }
 
-module.exports.getEmojiBySearch = async (name, category, min_date, max_date) => {
+module.exports.getEmojiBySearch = async (emoji_name, category_id, min_date, max_date) => {
     let query = `SELECT emoji.emoji_id, encoding
                         FROM emoji
                         LEFT JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
@@ -20,14 +20,14 @@ module.exports.getEmojiBySearch = async (name, category, min_date, max_date) => 
 
     const params = []
 
-    if (name) {
+    if (emoji_name) {
         query += `AND emoji_name LIKE $${params.length + 1}`
-        params.push(`%${name}%`)
+        params.push(`%${emoji_name}%`)
     }
 
-    if (category) {
-        query += `AND category_name = $${params.length + 1}`
-        params.push(category)
+    if (category_id) {
+        query += `AND category_id = $${params.length + 1}`
+        params.push(category_id)
     }
 
     if (min_date) {
@@ -45,38 +45,38 @@ module.exports.getEmojiBySearch = async (name, category, min_date, max_date) => 
     return rows
 }
 
-module.exports.getEmojiByEmojiID = async (id) => {
+module.exports.getEmojiByEmojiID = async (emoji_id) => {
     const { rows } = await pool.query(
         `SELECT *
         FROM emoji
         WHERE emoji_id = $1`,
-        [id]
+        [emoji_id]
     )
 
     return rows
 }
 
-module.exports.getCategoriesByEmojiID = async (id) => {
+module.exports.getCategoriesByEmojiID = async (emoji_id) => {
     const { rows } = await pool.query(
         `SELECT category.category_id, category_name
         FROM emoji
         LEFT JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
         LEFT JOIN category ON emoji_category.category_id = category.category_id
         WHERE emoji.emoji_id = $1`,
-        [id]
+        [emoji_id]
     )
 
     return rows
 }
 
-module.exports.getEmojiByCategoryID = async (id) => {
+module.exports.getEmojiByCategoryID = async (category_id) => {
     const { rows } = await pool.query(
         `SELECT emoji.emoji_id, encoding
         FROM emoji
         JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
         JOIN category ON emoji_category.category_id = category.category_id
         WHERE category.category_id = $1`,
-        [id]
+        [category_id]
     )
     return rows
 }
@@ -90,40 +90,40 @@ module.exports.getAllCategories = async () => {
     return rows
 }
 
-module.exports.getSpecificCategoryEmojis = async (categoryToSelect) => {
+module.exports.getSpecificCategoryEmojis = async (category_name) => {
     const { rows } = await pool.query(
         `SELECT emoji_id, emoji_name, encoding, date_added 
         FROM category 
         JOIN emoji_category ON category.category_id = emoji_category.category_id
         JOIN emoji ON emoji_category.emoji_id = emoji.emoji_id
         WHERE category_name = $1`,
-        [categoryToSelect]
+        [category_name]
     )
 
     return rows
 }
 
-module.exports.insertEmoji = async (name, emoji) => {
+module.exports.insertEmoji = async (emoji_name, encoding) => {
     await pool.query(
         `INSERT INTO emoji (emoji_name, encoding, date_added) 
             VALUES ($1, $2, $3)`,
-        [name, emoji, new Date()]
+        [emoji_name, encoding, new Date()]
     )
 }
 
-module.exports.addCategoryToEmoji = async (emoji_id, category) => {
+module.exports.addCategoryToEmoji = async (emoji_id, category_name) => {
     await pool.query(
         `INSERT INTO category (category_name)
             VALUES ($1)
         ON CONFLICT (category_name) DO NOTHING`,
-        [category]
+        [category_name]
     )
 
     const { rows } = await pool.query(
         `SELECT category_id
         FROM category 
         WHERE category_name = $1`,
-        [category]
+        [category_name]
     )
 
     const category_id = rows[0].category_id
@@ -136,12 +136,12 @@ module.exports.addCategoryToEmoji = async (emoji_id, category) => {
     )
 }
 
-module.exports.updateName = async (emoji_id, name) => {
+module.exports.updateName = async (emoji_id, emoji_name) => {
     const { rows } = await pool.query(
         `SELECT * 
         FROM emoji
         WHERE emoji_name = $1`,
-        [name]
+        [emoji_name]
     )
 
     if (rows.length) {
@@ -152,7 +152,7 @@ module.exports.updateName = async (emoji_id, name) => {
         `UPDATE emoji
         SET emoji_name = $1
         WHERE emoji_id = $2`,
-        [name, emoji_id]
+        [emoji_name, emoji_id]
     )
 
     return true
@@ -165,4 +165,8 @@ module.exports.deleteCategoryFromEmoji = async (emoji_id, category_id) => {
         AND category_id = $2`,
         [emoji_id, category_id]
     )
+}
+
+module.exports.getSharedCategories = async (category_id) => {
+
 }

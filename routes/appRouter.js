@@ -15,10 +15,10 @@ appRouter.use("/emoji", infoRouter)
 
 
 
-// todo: figure out how to remove categories for a specific emoji
 // todo: add a filter to each category_list page to show more specific intersections
 // probably checkboxes on the side to tick off and apply them with a submit button
-// todo: figure out how to delete all categories for all emojis
+
+// todo: figure out how to delete a category for all emojis
 // todo: add sort functionality by date added
 // todo: add autocomplete suggestions when adding new categories b
 //  ased on categories that already exist

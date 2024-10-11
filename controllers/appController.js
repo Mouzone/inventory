@@ -32,5 +32,6 @@ module.exports.inventoryNewPost = async (req, res) => {
 
 module.exports.inventoryCategoryGet = async (req, res) => {
     const emojis = await db.getEmojiByCategoryID(req.params.category_id)
+    const categories = await db.getSharedCategories(req.params.category_id)
     res.render("category", {title: `Category`, emojis})
 }

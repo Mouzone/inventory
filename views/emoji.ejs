@@ -28,9 +28,6 @@
                         <button type="submit"> Add Tag </button>
                     </form>
                     <% categories.forEach(category => { %>
-<!--                    todo: figure out if a link element is triggerable
-by pressing anywhere in the elment or just the text-->
-<!--                    todo: add deletion button -->
                         <div>
                             <a href="/category/<%= category.category_id %>"><%= category.category_name %></a>
                             <form action="/emoji/<%=emoji.emoji_id%>/edit/category/delete/<%= category.category_id%>/"
@@ -44,6 +41,6 @@ by pressing anywhere in the elment or just the text-->
         </div>
     </body>
     <script>
-<!--        make form button apepar and dissapear on button press-->
+<!--       todo:  make form button apepar and dissapear on button press-->
     </script>
 </html>
