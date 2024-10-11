@@ -31,10 +31,15 @@ module.exports.inventoryNewPost = async (req, res) => {
 }
 
 module.exports.inventoryCategoryGet = async (req, res) => {
-    // todo: modify getEmojiByCategory to take list of req.query to add onto the equalities
-    const emojis = await db.getEmojiByCategoryID(req.params.category_id)
+    const other_categories = Array.isArray(req.query.category_id)
+                                        ? req.query.category_id
+                                        : req.query.category_id
+                                            ? [req.query.category_id]
+                                            : []
+
+    const emojis = await db.getEmojiByCategoryID(req.params.category_id, other_categories)
     const categories = await db.getSharedCategories(req.params.category_id)
-    // todo: to_check here o category doens't work when not more than one box is checked
+
     res.render(
         "category",
         {
@@ -42,6 +47,6 @@ module.exports.inventoryCategoryGet = async (req, res) => {
             category_id: req.params.category_id,
             emojis,
             categories,
-            to_check: req.query.category_id,
+            to_check: other_categories,
         })
 }

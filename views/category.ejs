@@ -12,7 +12,7 @@
                             type="checkbox"
                             name="category_id"
                             value="<%= category.category_id%>"
-                            <%= to_check.includes(parseInt(category.category_id)) ? "checked" : ""%>
+                            <%= to_check.includes(`${category.category_id}`) ? "checked" : ""%>
                     >
                     <%= category.category_name %>
                 </label>

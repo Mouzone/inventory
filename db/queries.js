@@ -68,15 +68,24 @@ module.exports.getCategoriesByEmojiID = async (emoji_id) => {
     return rows
 }
 
-module.exports.getEmojiByCategoryID = async (category_id) => {
-    const { rows } = await pool.query(
-        `SELECT emoji.emoji_id, encoding
-        FROM emoji
-        JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
-        JOIN category ON emoji_category.category_id = category.category_id
-        WHERE category.category_id = $1`,
-        [category_id]
-    )
+module.exports.getEmojiByCategoryID = async (category_id, other_categories) => {
+    let query = `SELECT emoji.emoji_id, encoding
+                            FROM emoji
+                            JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
+                            JOIN category ON emoji_category.category_id = category.category_id
+                             WHERE category.category_id = $1`
+    const params = [category_id]
+
+    other_categories.forEach(curr_category_id => {
+        query += ` OR category.category_id = $${params.length + 1} `
+        params.push(curr_category_id)
+    })
+
+    query += ` GROUP BY emoji.emoji_id
+               HAVING COUNT(*) = $${params.length + 1} `
+    params.push(params.length)
+
+    const { rows } = await pool.query(query, params)
     return rows
 }
 
