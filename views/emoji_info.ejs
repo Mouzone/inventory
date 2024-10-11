@@ -12,7 +12,7 @@
                     <%= emoji.emoji_name %>
                     <button type="button"> Edit </button>
                 </p>
-                <form action="/info/<%= emoji.emoji_id %>/edit/name/" method="POST">
+                <form action="/emoji/<%= emoji.emoji_id %>/edit/name/" method="POST">
                     <label for="name"> New Name: </label>
                     <input type="text" id="name" name="name">
                     <div>
@@ -22,7 +22,7 @@
                 </form>
                 <%= emoji.date_added %>
                 <div>
-                    <form action="/info/<%= emoji.emoji_id %>/edit/category/add" method="POST">
+                    <form action="/emoji/<%= emoji.emoji_id %>/edit/category/add" method="POST">
                         <label for="category"></label>
                         <input type="text" id="category" name="category">
                         <button type="submit"> Add Tag </button>

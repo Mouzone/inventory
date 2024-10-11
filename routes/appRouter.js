@@ -10,7 +10,7 @@ appRouter.get("/new", appController.inventoryNewGet)
 appRouter.post("/new", appController.inventoryNewPost)
 appRouter.get("/category/:category_id", appController.inventoryCategoryGet)
 
-appRouter.use("/info", infoRouter)
+appRouter.use("/emoji", infoRouter)
 
 
 
