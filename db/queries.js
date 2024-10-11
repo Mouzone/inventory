@@ -191,6 +191,16 @@ module.exports.getSharedCategories = async (category_id) => {
     return rows
 }
 
+module.exports.getCategoryByCategoryID = async (category_id) => {
+    const { rows } = await pool.query(
+        `SELECT *
+        FROM category
+        WHERE category_id = $1`,
+        [category_id]
+    )
+
+    return rows
+}
 module.exports.deleteCategory = async (category_id) => {
 //     delete from emoji_caegory and category
 }

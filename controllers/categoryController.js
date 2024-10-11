@@ -7,13 +7,15 @@ module.exports.categoryGet = async (req, res) => {
             ? [req.query.category_id]
             : []
 
+    const result = await db.getCategoryByCategoryID(req.params.category_id)
+    const title = result[0].category_name
     const emojis = await db.getEmojiByCategoryID(req.params.category_id, other_categories)
     const categories = await db.getSharedCategories(req.params.category_id)
 
     res.render(
         "category",
         {
-            title: `Category`,
+            title,
             category_id: req.params.category_id,
             emojis,
             categories,
