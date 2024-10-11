@@ -18,18 +18,6 @@ module.exports.inventorySearchGet = async (req, res) => {
     res.render("index", {title: "Emojis", emojis, categories})
 }
 
-module.exports.inventoryNewGet = (req, res) => {
-    res.render("addEmoji", {title: "Add Player"})
-}
-
-module.exports.inventoryNewPost = async (req, res) => {
-    await db.insertEmoji(
-        req.body.name,
-        req.body.emoji
-    )
-    res.redirect("/")
-}
-
 module.exports.inventoryCategoryGet = async (req, res) => {
     const other_categories = Array.isArray(req.query.category_id)
                                         ? req.query.category_id
