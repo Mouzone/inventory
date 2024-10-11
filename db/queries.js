@@ -99,3 +99,29 @@ module.exports.insertEmoji = async (name, emoji) => {
         [name, emoji, new Date()]
     )
 }
+
+module.exports.insertCategory = async (emoji_id, category) => {
+//     emoji_id 100% exists so just link it emoji_Category
+    await pool.query(
+        `INSERT INTO category (category_name)
+            VALUES ($1)
+        ON CONFLICT (category_name) DO NOTHING`,
+        [category]
+    )
+
+    const result = await pool.query(
+        `SELECT category_id
+        FROM category 
+        WHERE category_name = $1`,
+        [category]
+    )
+
+    const category_id = result.rows[0].category_id
+
+    await pool.query(
+        `INSERT INTO emoji_category (emoji_id, category_id)
+            VALUES ($1, $2)
+        ON CONFLICT (emoji_id, category_id) DO NOTHING`,
+        [emoji_id, category_id]
+    )
+}

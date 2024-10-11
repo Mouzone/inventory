@@ -11,7 +11,7 @@
                 <%= emoji.emoji_name %>
                 <%= emoji.date_added %>
                 <div>
-                    <form action="" method="">
+                    <form action="/info/<%= emoji.emoji_id %>" method="POST">
                         <label for="category"></label>
                         <input type="text" id="category" name="category">
                         <button type="submit"> Add Tag </button>

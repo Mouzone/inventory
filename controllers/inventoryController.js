@@ -38,3 +38,8 @@ module.exports.inventoryInfoGet = async (req, res) => {
     res.render("info", {title: "Info", emoji, categories})
 
 }
+
+module.exports.inventoryInfoPost = async(req, res) => {
+    await db.insertCategory(req.params.emoji_id, req.body.category)
+    res.redirect(`/info/${req.params.emoji_id}`)
+}
