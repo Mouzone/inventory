@@ -5,7 +5,7 @@ module.exports.newGet = (req, res) => {
 }
 
 module.exports.newPost = async (req, res) => {
-    await db.insertEmoji(
+    await db.addEmoji(
         req.body.name,
         req.body.emoji
     )

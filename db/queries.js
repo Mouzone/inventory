@@ -58,9 +58,9 @@ module.exports.getEmojiByEmojiID = async (emoji_id) => {
 module.exports.getCategoriesByEmojiID = async (emoji_id) => {
     const { rows } = await pool.query(
         `SELECT category.category_id, category_name
-        FROM emoji
-        LEFT JOIN emoji_category ON emoji.emoji_id = emoji_category.emoji_id
-        LEFT JOIN category ON emoji_category.category_id = category.category_id
+        FROM category
+        JOIN emoji_category ON category.category_id = emoji_category.category_id
+        JOIN emoji ON emoji_category.emoji_id = emoji.emoji_id
         WHERE emoji.emoji_id = $1`,
         [emoji_id]
     )
@@ -111,12 +111,14 @@ module.exports.getSpecificCategoryEmojis = async (category_name) => {
     return rows
 }
 
-module.exports.insertEmoji = async (emoji_name, encoding) => {
+module.exports.addEmoji = async (emoji_name, encoding) => {
     await pool.query(
         `INSERT INTO emoji (emoji_name, encoding, date_added) 
             VALUES ($1, $2, $3)`,
         [emoji_name, encoding, new Date()]
     )
+
+    await pool.query("COMMIT")
 }
 
 module.exports.addCategoryToEmoji = async (emoji_id, category_name) => {
@@ -133,7 +135,6 @@ module.exports.addCategoryToEmoji = async (emoji_id, category_name) => {
         WHERE category_name = $1`,
         [category_name]
     )
-
     const category_id = rows[0].category_id
 
     await pool.query(
@@ -142,6 +143,8 @@ module.exports.addCategoryToEmoji = async (emoji_id, category_name) => {
         ON CONFLICT (emoji_id, category_id) DO NOTHING`,
         [emoji_id, category_id]
     )
+
+    await pool.query("COMMIT")
 }
 
 module.exports.updateName = async (emoji_id, emoji_name) => {
@@ -203,27 +206,29 @@ module.exports.getCategoryByCategoryID = async (category_id) => {
 }
 module.exports.deleteCategory = async (category_id) => {
     await pool.query(
-        `DELETE FROM category
+        `DELETE FROM emoji_category
          WHERE category_id = $1`,
         [category_id]
     )
 
     await pool.query(
-        `DELETE FROM emoji_category
-        WHERE category_id = $1`,
+        `DELETE FROM category
+         WHERE category_id = $1`,
         [category_id]
     )
+
+
 }
 
 module.exports.deleteEmoji = async (emoji_id) => {
     await pool.query(
-        `DELETE FROM emoji
-        WHERE emoji_id = $1`,
+        `DELETE FROM emoji_category
+         WHERE emoji_id = $1`,
         [emoji_id]
     )
 
     await pool.query(
-        `DELETE FROM emoji_category
+        `DELETE FROM emoji
         WHERE emoji_id = $1`,
         [emoji_id]
     )
