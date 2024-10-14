@@ -30,6 +30,10 @@ div#info {
     gap: 10px;
 }
 
+form#edit_form {
+    display: none;
+}
+
 div#tags {
     width: 50%;
     display: flex;
@@ -40,3 +44,4 @@ div#tags {
 div#tag {
     display: flex;
 }
+

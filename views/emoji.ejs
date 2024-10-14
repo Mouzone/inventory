@@ -12,14 +12,14 @@
             <div id="info">
                 <p>
                     <%= emoji.emoji_name %>
-                    <button type="button"> Edit </button>
+                    <button id="edit" type="button"> Edit </button>
                 </p>
-                <form action="/emoji/<%= emoji.emoji_id %>/edit/name/" method="POST">
+                <form id="edit_form" action="/emoji/<%= emoji.emoji_id %>/edit/name/" method="POST">
                     <label for="name"> New Name: </label>
-                    <input type="text" id="name" name="name">
+                    <input type="text" id="name" name="name" required>
                     <div>
-                        <button type="submit"> Update </button>
-                        <button type="button"> Cancel </button>
+                        <button type="submit" id="update"> Update </button>
+                        <button type="button" id="cancel"> Cancel </button>
                     </div>
                 </form>
                 <%= emoji.date_added %>
@@ -48,6 +48,16 @@
         </form>
     </body>
     <script>
-<!--       todo:  make form button apepar and dissapear on button press-->
+        const edit_button = document.getElementById("edit")
+        const edit_form = document.getElementById("edit_form")
+        const cancel_button = document.getElementById("cancel")
+        edit_button.addEventListener("click", () => {
+            edit_form.style.display = "block"
+        })
+        cancel_button.addEventListener("click", () => {
+            edit_form.reset()
+            edit_form.style.display = "none"
+        })
+
     </script>
 </html>
