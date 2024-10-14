@@ -17,3 +17,11 @@ module.exports.inventorySearchGet = async (req, res) => {
     )
     res.render("index", {title: "Emojis", emojis, categories})
 }
+
+module.exports.inventoryNewPost = async (req, res) => {
+    await db.addEmoji(
+        req.body.name,
+        req.body.emoji
+    )
+    res.redirect("/")
+}
