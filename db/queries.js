@@ -221,11 +221,28 @@ module.exports.deleteCategory = async (category_id) => {
 }
 
 module.exports.deleteEmoji = async (emoji_id) => {
+    const { rows } = await pool.query(
+                        `SELECT category_id, COUNT(*) FROM emoji_category
+                        WHERE emoji_id = $1
+                        GROUP BY category_id`,
+                        [emoji_id]
+                    )
+
     await pool.query(
         `DELETE FROM emoji_category
          WHERE emoji_id = $1`,
         [emoji_id]
     )
+
+    rows.forEach(async row => {
+        if (row.count === '1') {
+            await pool.query(
+                `DELETE FROM category
+                WHERE category_id = $1`,
+                [row.category_id]
+            )
+        }
+    })
 
     await pool.query(
         `DELETE FROM emoji
