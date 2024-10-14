@@ -33,6 +33,7 @@ form#search {
     font-weight: bold;
 }
 
+/* todo: fix when adding more to go next row*/
 div {
     display: grid;
     grid-auto-flow: column;
@@ -42,12 +43,13 @@ div {
     width: 100%
 }
 
-form#new {
-    display: flex;
-    justify-content: center;
+ button#new {
+     font-size: 25px;
+     padding: 0 25px 0 25px;
+     width: 100px;
+     align-self: center;
 }
 
-form#new button {
-    font-size: 25px;
-    padding: 0 25px 0 25px;
+form#new_form {
+    display: none;
 }

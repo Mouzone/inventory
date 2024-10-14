@@ -29,8 +29,21 @@
                 <a href="/emoji/<%= emoji.emoji_id %>"> <%= emoji.encoding %></a>
             <% }) %>
         </div>
-        <form id="new" method="GET" action="/new">
-            <button type="submit"> + </button>
+        <button id = "new" type="submit" > + </button>
+        <form id = "new_form" action="/new" method="POST">
+            <label for="name"> Name: </label>
+            <input type="text" id="name" name="name" required>
+            <!--            todo: add check that it is an emoji that is passed through-->
+            <label for="emoji"> Emoji: </label>
+            <input type="text" id="emoji" name="emoji" required>
+            <button type="submit">Submit</button>
         </form>
     </body>
+    <script>
+        const new_button = document.getElementById("new")
+        const new_form = document.getElementById("new_form")
+        new_button.addEventListener("click", () => {
+            new_form.style.display = "block"
+        })
+    </script>
 </html>
