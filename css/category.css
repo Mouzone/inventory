@@ -4,6 +4,36 @@
     box-sizing: content-box;
 }
 
-a {
-
+body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
+
+h1 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+div {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+a {
+    text-decoration: none;
+    font-size: 100px;
+    text-align: center;
+    padding: 20px;
+    background-color: palevioletred;
+    border-radius: 25px;
+}
+

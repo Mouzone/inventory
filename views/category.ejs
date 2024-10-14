@@ -20,11 +20,13 @@
                     <%= category.category_name %>
                 </label>
             <% }) %>
-            <button type="submit">Submit</button>
+            <button type="submit"> Include </button>
         </form>
-        <% emojis.forEach(emoji => {%>
-            <a href="/emoji/<%= emoji.emoji_id %>"><%= emoji.encoding%></a>
-        <% }) %>
+        <div>
+            <% emojis.forEach(emoji => {%>
+                <a href="/emoji/<%= emoji.emoji_id %>"><%= emoji.encoding%></a>
+            <% }) %>
+        </div>
         <form action="/category/<%= category_id %>/delete" method="POST">
             <button type="submit"> Delete This Category From All Emojis </button>
         </form>
