@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><%= title %></title>
+        <link rel="stylesheet" href="/emoji.css">
     </head>
     <body>
-        <title><%= title %></title>
-        <div>
-            <div><%= emoji.encoding %></div>
-            <div>
+        <div id="card">
+            <div id="emoji"><%= emoji.encoding %></div>
+            <div id="info">
                 <p>
                     <%= emoji.emoji_name %>
                     <button type="button"> Edit </button>
@@ -27,21 +29,23 @@
                         <input type="text" id="category" name="category" required>
                         <button type="submit"> Add Tag </button>
                     </form>
-                    <% categories.forEach(category => { %>
-                        <div>
-                            <a href="/category/<%= category.category_id %>"><%= category.category_name %></a>
-                            <form action="/emoji/<%=emoji.emoji_id%>/edit/category/delete/<%= category.category_id%>/"
-                                method="POST">
-                                <button type="submit"> Remove </button>
-                            </form>
-                        </div>
-                    <% }) %>
+                    <div id="tags">
+                        <% categories.forEach(category => { %>
+                            <div id="tag">
+                                <a href="/category/<%= category.category_id %>"><%= category.category_name %></a>
+                                <form action="/emoji/<%=emoji.emoji_id%>/edit/category/delete/<%= category.category_id%>/"
+                                      method="POST">
+                                    <button type="submit"> X </button>
+                                </form>
+                            </div>
+                        <% }) %>
+                    </div>
                 </div>
             </div>
-            <form action="/emoji/<%=emoji.emoji_id%>/delete" method="POST">
-                <button type="submit"> Delete Emoji </button>
-            </form>
         </div>
+        <form action="/emoji/<%=emoji.emoji_id%>/delete" method="POST">
+            <button type="submit"> Delete Emoji </button>
+        </form>
     </body>
     <script>
 <!--       todo:  make form button apepar and dissapear on button press-->

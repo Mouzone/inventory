@@ -1,0 +1,42 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Helvetica;
+}
+
+div#card {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+div#emoji {
+    font-size: 200px;
+}
+
+div#info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+div#tags {
+    width: 50%;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+div#tag {
+    display: flex;
+}
