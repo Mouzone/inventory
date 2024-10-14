@@ -8,7 +8,7 @@
     </head>
     <body>
         <h1><%= title %></h1>
-        <form method="GET" action="/search">
+        <form id="search" method="GET" action="/search">
             <label for="name"> Name: </label>
             <input type="text" id="name" name="name">
             <label for="category"> Category: </label>
@@ -29,8 +29,8 @@
                 <a href="/emoji/<%= emoji.emoji_id %>"> <%= emoji.encoding %></a>
             <% }) %>
         </div>
-        <form method="GET" action="/new">
-            <button type="submit"> New </button>
+        <form id="new" method="GET" action="/new">
+            <button type="submit"> + </button>
         </form>
     </body>
 </html>
